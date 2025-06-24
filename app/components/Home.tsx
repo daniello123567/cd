@@ -25,7 +25,6 @@ function Home() {
 
 
 
-  const pathname = usePathname()
 
 useEffect(()=>{
 const medias = document.querySelectorAll('#man');
