@@ -14,7 +14,7 @@ const ChirpBold = font({ src: '../../../public/Chirp-Bold.ebb56aba.woff2' })
 const Header = () => {
   return <div className='h-[53px] z-50 top-[.5rem] border dark:border-[#3F3E47] border-[#EDEDF5] left-0 fixed bg-white dark:bg-[#000] w-screen'>
     <div className='w-full h-full border-l border-r dark:border-[#3F3E47] border-[#EDEDF5] mx-auto md:max-w-[598px]'>
-      <div className='flex px-[.5rem] flex-row  h-full items-center'>
+      <div className='flex pl-[3em] px-[.5rem] flex-row  h-full items-center'>
           <Link href={'/'} className='h-full w-[56px] cursor-pointer flex justify-start items-center'>
                       <svg className='text-black dark:text-white' fill='currentColor' width={20} height={20} viewBox="0 0 24 24" aria-hidden="true"  ><g><path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path></g></svg>
 
@@ -128,8 +128,8 @@ const {user_image,username,Name,post,media,created_at,user_id:ownerofpost} = dat
 
 
   return (
-    <div className={`w-full dark:text-white bg-white dark:bg-[#000]  dark:border-[#3F3E47] border-[#EDEDF5] px-[.5rem] border-t border-b  h-screen`}>
-      <div className={`h-full  pt-[4rem] dark:dark:[--pattern-foreground:var(--color-white)]/5 bg-size-[10px_10px] dark:bg-white/0.75 flex py-[.75rem]  bg-[radial-gradient(var(--pattern-foreground)_1px,transparent_0)]  min-h-[5rem] dark:border-[#3F3E47]   mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
+    <div className={`w-full  dark:text-white bg-white dark:bg-[#000]  dark:border-[#3F3E47] border-[#EDEDF5] px-[.5rem] border-t border-b  min-h-screen`}>
+      <div className={`h-full pb-[7em] pt-[4rem] dark:dark:[--pattern-foreground:var(--color-white)]/5 bg-size-[10px_10px] dark:bg-white/0.75 flex py-[.75rem]  bg-[radial-gradient(var(--pattern-foreground)_1px,transparent_0)]  min-h-[5rem] dark:border-[#3F3E47]   mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
         <Header />
 
         <div className='w-full h-fit px-[1em] py-[1em] bg-white dark:bg-[#000]'>
