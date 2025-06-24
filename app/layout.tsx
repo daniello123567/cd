@@ -2,7 +2,7 @@
 import React,{useEffect,useState} from 'react'
 import './globals.css'
 import { exampleUser,  newNotys, fetchAllusersNotifications, notificationStore, supabase } from './utils/utils'
-import Header, { Logo, Nav } from './components/Header'
+import Header, { Dy, Logo, Nav } from './components/Header'
 import { mode } from './utils/store';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import gsap from 'gsap';
@@ -127,6 +127,7 @@ const pathname = usePathname()
         &&<Nav/>}
         <Newpost/>
         <Imagemodal/>
+        <Dy/>
         <div id='loader' className='fixed z-50 top-0 h-screen w-full flex items-center justify-center bg-white'>
           <Logo si='logo2'/>
         </div>

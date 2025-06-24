@@ -8,6 +8,7 @@ import { Post } from '../utils/types';
 import Loading from './Loading';
 import gsap from 'gsap'
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation';
 
 
 
@@ -24,16 +25,17 @@ function Home() {
 
 
 
+  const pathname = usePathname()
 
 useEffect(()=>{
-const medias = document?.querySelectorAll('#man');
-medias.forEach((media)=>{
+const medias = document.querySelectorAll('#man');
+medias?.forEach((media)=>{
 gsap.to(media,{
   scale:1,
   scrollTrigger:{
     trigger:media,
-    start:'top 90%',
-    end:'top 60%',
+    start:'top 97%',
+    end:'top 80%',
     scrub:true,
   }
 })
@@ -42,7 +44,7 @@ gsap.to(media,{
   return (
  <div  className='mx-[.5rem] md:mx-auto md:max-w-[598px] pt-[6rem] md:w-full border dark:border-[#3F3E47] border-[#EDEDF5] min-h-[100vh] '>
 
-   <div id='whole-news' className='bg-transparent gap-1 pt-6 flex flex-col  absolute top-[3rem] left-0 w-[100%] h-fit'>
+   <div id='whole-news' className='bg-transparent overflow-x-hidden gap-1 pt-6 flex flex-col  absolute top-[3rem] left-0 w-[100%] h-fit'>
 
 
 

@@ -39,16 +39,14 @@ function Header() {
     <div id='header' className={`w-full   overflow-hidden bg-white z-50 dark:bg-[#000] dark:border-[#3F3E47] border-[#EDEDF5] fixed top-[.5rem] px-[.5rem] border-t border-b  h-[3rem]`}>
       <div className={`h-full  z-50  dark:border-[#3F3E47]  head-child flex justify-between items-center mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
         <Logo />
-       <div className={`${info.name&&info.username&&'gap-[1em]'} pr-[1.5em]  flex items-center justify-between`}>
-{info.name&&info.id&&<Link href={`/profile/${info.id}`} className='w-[40px] overflow-hidden bg-red-600 rounded-full h-[40px]'>
-          <img src={info.image} alt={info.name} />
-          </Link>}
-        </div>
+
       </div>
     </div>
   )
 }
-
+const Dy = ()=>{return <div className='w-[36px] bg-white dark:bg-black rounded-full fixed right-[1em] bottom-[6em] h-[36px]'>
+  <Switcher/>
+</div>}
 
 const HomeIcon = () => {
   return <div className='p-[15px]  hover:px-[20px] dark:hover:bg-black hover:mr-1 text-zinc-600 hover:text-zinc-900 relative group transition-all duration-[300ms] hover:bg-[#ededed] rounded-[15px]'>
@@ -108,8 +106,11 @@ const OpenPost = ()=>{
         return <Link href={`/${icon.function}`} className='cursor-pointer' key={icon.function}>{icon.ele}</Link>
       })}
       <div className="h-5 w-[1px] mr-[.5em] bg-zinc-200 md:mx-2"></div>
-        <Switcher />
-
+         <div className={`  flex items-center justify-between`}>
+{info.name&&info.id&&<Link href={`/profile/${info.id}`} className='w-[40px] overflow-hidden bg-red-600 rounded-full h-[40px]'>
+          <img src={info.image} alt={info.name} />
+          </Link>}
+        </div>
       <div onClick={OpenPost} className='bg-black text-nowrap cursor-pointer text-white  py-[14px] px-[20px] md:px-[22px] rounded-[14px] text-sm hover:opacity-90 duration-[300ms]  transition-all hover:px-[28px] ml-2 md:ml-1'>
         New Post
 
@@ -117,5 +118,5 @@ const OpenPost = ()=>{
     </div>
   </div>
 }
-export { Nav,Logo }
+export { Nav,Logo,Dy }
 export default Header

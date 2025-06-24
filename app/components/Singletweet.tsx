@@ -129,7 +129,7 @@ function Singletweet({ Name, id, user_image, username, created_at, post, media, 
           <div className='w-full h-full flex flex-col'>
 
 
-            <div className='flex mb-[2px] items-center'>
+            <div className='flex flex-wrap mb-[2px] items-center'>
               <Link href={`/profile/${owner_id}`} className={`${Namex.className} underline text-[.9375rem]`}>{Name}</Link>
               <Verified />
               <span className={`text-[#536471] text-[.9375rem] ${UserName.className}`}>@{username}</span>
