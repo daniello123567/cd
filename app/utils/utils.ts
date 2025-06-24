@@ -11,7 +11,7 @@ const throwError = () => {
 
 
 const fetchAllPosts = async () => {
-  const { data, error } = await supabase.from('posts').select('*');
+  const { data, error } = await supabase.from('posts').select('*').order('created_at', { ascending: true });
   return error ? throwError() : data;
 }
 const likePost = async (bro: { post_id: string, owner_of_post_id: string, user_id: string, name: string, username: string, image: string }) => {

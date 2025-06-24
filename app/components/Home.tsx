@@ -51,7 +51,7 @@ gsap.to(media,{
 
 
     {!isPending&&posts?posts.map((post:Post)=>{
-      return <Singletweet media={post.media} created_at={post.created_at} post={post.post} id={post.id} Name={post.Name} username={post.username} user_image={post.user_image} key={post.id} user_id={post.user_id}/>
+      return <Singletweet dl={post.dl} dc={post.dc} media={post.media} created_at={post.created_at} post={post.post} id={post.id} Name={post.Name} username={post.username} user_image={post.user_image} key={post.id} user_id={post.user_id}/>
     }):<Loading/>}
 
 

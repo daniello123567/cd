@@ -15,6 +15,8 @@ type Comment = {
 }
 
 type Post = {
+  dc?:string,
+  dl?:string,
   id:string,
   created_at:string,
   username:string,
