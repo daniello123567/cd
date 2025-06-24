@@ -76,6 +76,7 @@ const Verified = () => {
 }
 const Media = ({ media, Name }: { Name: string, media: string }) => {
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [parent,setparent] = useState<HTMLDivElement>()
   const Flip = (e: React.MouseEvent<HTMLImageElement>) => {
     gsap.set('#par', { opacity: 1, y: 0 })
     const state = _Flip.getState(e.currentTarget);
@@ -86,7 +87,7 @@ const Media = ({ media, Name }: { Name: string, media: string }) => {
     } else {
       e.currentTarget.classList.remove('modal')
 
-      document.getElementById(`mediaman-${Name}`)?.appendChild(e.currentTarget)
+      parent?.appendChild(e.currentTarget)
       gsap.set('#par', { y: 1000, opacity: 0 })
     }
     _Flip.from(state, {
@@ -101,7 +102,7 @@ const Media = ({ media, Name }: { Name: string, media: string }) => {
     })
   }
 
-  return <div id={`mediaman-${Name}`} onLoad={(e) => { e.currentTarget.style.minHeight = `${e.currentTarget.offsetHeight}px` }} className={`w-full  cursor-pointer  overflow-hidden  rounded-[1em] mt-[.75rem]  max-h-[516px]`}>
+  return <div id={`mediaman-${Name}`} onLoad={(e) => {setparent(e.currentTarget); e.currentTarget.style.minHeight = `${e.currentTarget.offsetHeight}px` }} className={`w-full  cursor-pointer  overflow-hidden  rounded-[1em] mt-[.75rem]  max-h-[516px]`}>
     <div onClick={Flip} className='w-full border dark:border-[#3F3E47] border-[#EDEDF5] rounded-[1em] overflow-hidden h-fit'>
       <img className='w-full object-cover h-auto' src={media} alt={Name} />
 
@@ -155,17 +156,7 @@ function Singletweet({ Name, id, user_image, username, created_at, post, media, 
 
 
 
-              {/* <div className='min-w-[18.75px] cursor-pointer flex h-[18.75px]'>
-                <svg className='text-[#536471] w-[18.75px] h-[18.75px] dark:text-white' fill='currentColor' height="24" role="img" viewBox="0 0 24 24" width="24"><title>Share</title><line fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
-                  <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></polygon></svg>
-                <p className={`text-[.8125rem] px-[.25rem] text-[#536471] ${UserName.className}`}>20</p>
 
-              </div> */}
-              {/* <div className='min-w-[18.75px] cursor-pointer flex h-[18.75px]'>
-
-                <svg className='text-[#536471] w-[18.75px] h-[18.75px] dark:text-white' fill='currentColor' height="18.75" role="img" viewBox="0 0 24 24" width="18.75"><polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"></polygon></svg>
-                <p className={`text-[.8125rem] px-[.25rem] text-[#536471] ${UserName.className}`}>20</p>
-              </div> */}
 
             </div>
 

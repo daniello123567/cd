@@ -42,7 +42,7 @@ gsap.to(media,{
   return (
  <div  className='mx-[.5rem] md:mx-auto md:max-w-[598px] pt-[6rem] md:w-full border dark:border-[#3F3E47] border-[#EDEDF5] min-h-[100vh] '>
 
-   <div id='whole-news' className='bg-transparent overflow-x-hidden gap-1 pt-6 flex flex-col  absolute top-[3rem] left-0 w-[100%] h-fit'>
+   <div id='whole-news' className='bg-transparent overflow-x-hidden gap-1 pb-[4em] pt-6 flex flex-col  absolute top-[3rem] left-0 w-[100%] h-fit'>
 
 
 
