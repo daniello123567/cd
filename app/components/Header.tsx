@@ -36,10 +36,10 @@ function Switcher() {
 function Header() {
   const {info} = exampleUser()
   return (
-    <div id='header' className={`w-full overflow-hidden bg-white z-50 dark:bg-[#000] dark:border-[#3F3E47] border-[#EDEDF5] fixed top-[.5rem] px-[.5rem] border-t border-b  h-[3rem]`}>
-      <div className={`h-full dark:border-[#3F3E47]  head-child flex justify-between items-center mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
+    <div id='header' className={`w-full  overflow-hidden bg-white z-50 dark:bg-[#000] dark:border-[#3F3E47] border-[#EDEDF5] fixed top-[.5rem] px-[.5rem] border-t border-b  h-[3rem]`}>
+      <div className={`h-full  dark:border-[#3F3E47]  head-child flex justify-between items-center mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
         <Logo />
-        <div className={`${info.name&&info.username&&'w-[5em]'}  flex items-center justify-between`}>
+        <div className={`${info.name&&info.username&&'gap-[1em]'} pr-[1.5em]  flex items-center justify-between`}>
           {info.name&&info.id&&<Link href={`/profile/${info.id}`} className='w-[40px] overflow-hidden bg-red-600 rounded-full h-[40px]'>
           <img src={info.image} alt={info.name} />
           </Link>}
