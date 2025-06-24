@@ -8,7 +8,6 @@ import { Post } from '../utils/types';
 import Loading from './Loading';
 import gsap from 'gsap'
 import { useEffect } from 'react'
-import { usePathname } from 'next/navigation';
 
 
 
