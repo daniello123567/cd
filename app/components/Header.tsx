@@ -34,11 +34,18 @@ function Switcher() {
 }
 
 function Header() {
+  const {info,setInfo} = exampleUser();
+  const router = useRouter()
+  const Logout = ()=>{
+        setInfo({name:'',username:"",image:"",id:""});
+      router.push('/');
+      return;
+      }
   return (
     <div id='header' className={`w-full   overflow-hidden bg-white z-50 dark:bg-[#000] dark:border-[#3F3E47] border-[#EDEDF5] fixed top-[.5rem] px-[.5rem] border-t border-b  h-[3rem]`}>
       <div className={`h-full  z-50  dark:border-[#3F3E47]  head-child flex justify-between items-center mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
         <Logo />
-
+         <div className='text-sky-600 underline text-sm'>{!info.name?<Link href="/signin">sign in</Link>:<div onClick={Logout}>Log out</div>}</div>
       </div>
     </div>
   )
