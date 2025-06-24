@@ -1,0 +1,181 @@
+"use client"
+import React, {  useState } from 'react'
+import font from 'next/font/local';
+import { Post } from '../utils/types';
+import { Datify, deleteLike, exampleUser, getCommentCount, GetPostLikes,  likePost } from '../utils/utils';
+import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
+import {  usePathname, useRouter } from 'next/navigation';
+import gsap from 'gsap';
+import _Flip from 'gsap/Flip';
+const Namex = font({ src: '../../public/Chirp-Bold.ebb56aba.woff2' });
+const UserName = font({ src: '../../public/Chirp-Regular.80fda27a.woff2' });
+
+
+
+const Like = ({ post_id, owner_of_post_id }: { owner_of_post_id: string, post_id: string, user_id: string }) => {
+
+  const LikedComponent = () => {
+    return <svg className='text-[#ff3040]' fill='currentColor' viewBox="0 0 24 24" aria-hidden="true"><g><path d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></g></svg>
+  }
+
+  const NeutralLike = () => {
+    return <svg className='text-black dark:text-white' fill='currentColor' viewBox="0 0 24 24" aria-hidden="true"><g><path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></g></svg>
+
+  }
+
+  const [isLiked, setisLiked] = useState<boolean>(false);
+  const [countLikes, setCountLikes] = useState<number>(0);
+  const { info } = exampleUser()
+  const { name, username, image } = info;
+  const {  } = useQuery({
+    queryKey: ['likes', usePathname()],
+    queryFn: () => GetPostLikes(post_id, setCountLikes, info.id, setisLiked),
+  });
+  const router = useRouter();
+  const handleLike = () => {
+    if(!name||!username||!image){
+      router.push('/signup');
+      return;
+    }
+    if (!isLiked) {
+      likePost({ user_id: info.id, post_id: post_id, owner_of_post_id: owner_of_post_id, name, username, image })
+      setisLiked(true);
+      setCountLikes((prev) => prev + 1)
+    } else if (isLiked) {
+      deleteLike({ user_id: info.id, post_id: post_id });
+      setisLiked(false);
+      setCountLikes(prev => prev - 1)
+    }
+
+  }
+
+  return <div onClick={handleLike} className='flex items-center w-[48px] cursor-pointer h-[24px]'>
+    {isLiked ? <LikedComponent /> : <NeutralLike />}
+    <p className={`text-[18px] dark:text-white px-[.25rem] text-black ${UserName.className}`}>{countLikes}</p>
+
+  </div>
+}
+
+const Comment = ({ post_id}: { ownerid: string, post_id: string }) => {
+  const { data} = useQuery({
+    queryKey: ['comments', post_id],
+    queryFn: () => getCommentCount(post_id)
+  });
+
+  return <Link href={`/Comment/${post_id}`} className='min-w-[18.75px] dark:text-white items-center w-[48px] cursor-pointer  flex  h-[24px]'>
+    <svg className='text-black dark:text-white' fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path></svg>
+    <p className={`text-[18px] dark:text-white ml-[.3em] px-[.25rem] text-black ${UserName.className}`}>{data}</p>
+  </Link>
+}
+
+const Verified = () => {
+  return <svg className='w-[16.05px] mr-[.3em] h-[16.05px]' fill='#1d9bf0' viewBox="0 0 22 22"><g><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path></g></svg>
+}
+const Media = ({ media, Name }: { Name: string, media: string }) => {
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const Flip = (e: React.MouseEvent<HTMLImageElement>) => {
+    gsap.set('#par', { opacity: 1, y: 0 })
+    const state = _Flip.getState(e.currentTarget);
+    if (!isModal) {
+      e.currentTarget.classList.add('modal');
+      document.getElementById('par')?.appendChild(e.currentTarget);
+
+    } else {
+      e.currentTarget.classList.remove('modal')
+
+      document.getElementById(`mediaman-${Name}`)?.appendChild(e.currentTarget)
+      gsap.set('#par', { y: 1000, opacity: 0 })
+    }
+    _Flip.from(state, {
+      duration: 0.6,
+      ease: 'power2.inOut',
+      scale: true,
+      fade: true,
+      absolute: true,
+      onComplete: () => {
+        setIsModal(!isModal)
+      }
+    })
+  }
+
+  return <div id={`mediaman-${Name}`} onLoad={(e) => { e.currentTarget.style.minHeight = `${e.currentTarget.offsetHeight}px` }} className={`w-full  cursor-pointer  overflow-hidden  rounded-[1em] mt-[.75rem]  max-h-[516px]`}>
+    <div onClick={Flip} className='w-full border dark:border-[#3F3E47] border-[#EDEDF5] rounded-[1em] overflow-hidden h-fit'>
+      <img className='w-full object-cover h-auto' src={media} alt={Name} />
+
+    </div>
+
+
+  </div>
+}
+function Singletweet({ Name, id, user_image, username, created_at, post, media, user_id: owner_id }: Post) {
+  const { info } = exampleUser();
+
+  return (
+    <div className={`w-full  px-[.5rem] bg-white dark:bg-[#000]  dark:border-[#3F3E47] border-[#EDEDF5]  border-t border-b  `}>
+      <div className={`h-full py-[.75rem] head-child flex min-h-[5rem] dark:border-[#3F3E47]   mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
+
+        <div className='basis-[40px] mr-[.5rem]'>
+          <div className='rounded-full  bg-black dark:bg-white w-[40px] h-[40px]'>
+            <Link className='w-full h-full' href={`/profile/${owner_id}`}>
+              <img className='w-full h-full object-cover rounded-full' src={user_image} alt="user" />
+            </Link>
+
+          </div>
+        </div>
+        <div className='flex-1 pr-[1em] h-full'>
+          <div className='w-full h-full flex flex-col'>
+
+
+            <div className='flex mb-[2px] items-center'>
+              <Link href={`/profile/${owner_id}`} className={`${Namex.className} text-[.9375rem]`}>{Name}</Link>
+              <Verified />
+              <span className={`text-[#536471] text-[.9375rem] ${UserName.className}`}>@{username}</span>
+              <div className='bg-[#536471] w-[4px] h-[4px] rounded-full mx-[.2em]'></div>
+              <span className={`text-[#536471] ml-[.3em] text-[.9375rem] ${UserName.className}`}>{Datify(created_at)}</span>
+            </div>
+            <div>
+              <p className={`${UserName.className} text-[.9375rem]`}>{post}</p>
+            </div>
+            <div id='man' className='w-fit h-fit'>
+              {media && <Media Name={Name} media={media} />}
+            </div>
+            <div className='flex items-center mt-[1em] gap-[1.5em] h-[2rem]'>
+
+
+              <Like owner_of_post_id={owner_id} post_id={id} user_id={info.id} />
+
+              <Comment ownerid={owner_id} post_id={id} />
+
+
+
+
+
+
+
+              {/* <div className='min-w-[18.75px] cursor-pointer flex h-[18.75px]'>
+                <svg className='text-[#536471] w-[18.75px] h-[18.75px] dark:text-white' fill='currentColor' height="24" role="img" viewBox="0 0 24 24" width="24"><title>Share</title><line fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
+                  <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></polygon></svg>
+                <p className={`text-[.8125rem] px-[.25rem] text-[#536471] ${UserName.className}`}>20</p>
+
+              </div> */}
+              {/* <div className='min-w-[18.75px] cursor-pointer flex h-[18.75px]'>
+
+                <svg className='text-[#536471] w-[18.75px] h-[18.75px] dark:text-white' fill='currentColor' height="18.75" role="img" viewBox="0 0 24 24" width="18.75"><polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"></polygon></svg>
+                <p className={`text-[.8125rem] px-[.25rem] text-[#536471] ${UserName.className}`}>20</p>
+              </div> */}
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+  )
+}
+
+export default Singletweet
