@@ -114,7 +114,7 @@ function Singletweet({ Name, id, user_image, username, created_at, post, media, 
   const { info } = exampleUser();
 
   return (
-    <div className={`w-full  px-[.5rem] bg-white dark:bg-[#000]  dark:border-[#3F3E47] border-[#EDEDF5]  border-t border-b  `}>
+    <div  className={`w-full  px-[.5rem] bg-white dark:bg-[#000]  dark:border-[#3F3E47] border-[#EDEDF5]  border-t border-b  `}>
       <div className={`h-full py-[.75rem] head-child flex min-h-[5rem] dark:border-[#3F3E47]   mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
 
         <div className='basis-[40px] mr-[.5rem]'>
@@ -130,7 +130,7 @@ function Singletweet({ Name, id, user_image, username, created_at, post, media, 
 
 
             <div className='flex mb-[2px] items-center'>
-              <Link href={`/profile/${owner_id}`} className={`${Namex.className} text-[.9375rem]`}>{Name}</Link>
+              <Link href={`/profile/${owner_id}`} className={`${Namex.className} underline text-[.9375rem]`}>{Name}</Link>
               <Verified />
               <span className={`text-[#536471] text-[.9375rem] ${UserName.className}`}>@{username}</span>
               <div className='bg-[#536471] w-[4px] h-[4px] rounded-full mx-[.2em]'></div>

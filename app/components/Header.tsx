@@ -28,7 +28,7 @@ const Moon = () => {
 function Switcher() {
   const { isDarkMode, setIsDarkMode } = mode();
 
-  return <div onClick={setIsDarkMode} className={`w-[32px] dark:border-[#3F3E47] flex items-center justify-center hover:cursor-pointer rounded-full border border-[#EDEDF5] h-[32px]`}>
+  return <div onClick={setIsDarkMode} className={`w-[36px] dark:border-[#3F3E47] flex items-center justify-center hover:cursor-pointer rounded-full border border-[#EDEDF5] h-[36px]`}>
     {!isDarkMode ? <Sun /> : <Moon />}
   </div>
 }
@@ -36,14 +36,13 @@ function Switcher() {
 function Header() {
   const {info} = exampleUser()
   return (
-    <div id='header' className={`w-full  overflow-hidden bg-white z-50 dark:bg-[#000] dark:border-[#3F3E47] border-[#EDEDF5] fixed top-[.5rem] px-[.5rem] border-t border-b  h-[3rem]`}>
-      <div className={`h-full  dark:border-[#3F3E47]  head-child flex justify-between items-center mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
+    <div id='header' className={`w-full   overflow-hidden bg-white z-50 dark:bg-[#000] dark:border-[#3F3E47] border-[#EDEDF5] fixed top-[.5rem] px-[.5rem] border-t border-b  h-[3rem]`}>
+      <div className={`h-full  z-50  dark:border-[#3F3E47]  head-child flex justify-between items-center mx-auto md:max-w-[598px] border-[#EDEDF5] border-l border-r`}>
         <Logo />
-        <div className={`${info.name&&info.username&&'gap-[1em]'} pr-[1.5em]  flex items-center justify-between`}>
-          {info.name&&info.id&&<Link href={`/profile/${info.id}`} className='w-[40px] overflow-hidden bg-red-600 rounded-full h-[40px]'>
+       <div className={`${info.name&&info.username&&'gap-[1em]'} pr-[1.5em]  flex items-center justify-between`}>
+{info.name&&info.id&&<Link href={`/profile/${info.id}`} className='w-[40px] overflow-hidden bg-red-600 rounded-full h-[40px]'>
           <img src={info.image} alt={info.name} />
           </Link>}
-        <Switcher />
         </div>
       </div>
     </div>
@@ -108,7 +107,8 @@ const OpenPost = ()=>{
       {icons.map((icon) => {
         return <Link href={`/${icon.function}`} className='cursor-pointer' key={icon.function}>{icon.ele}</Link>
       })}
-      <div className="h-5 w-[1px] bg-zinc-200 md:mx-2"></div>
+      <div className="h-5 w-[1px] mr-[.5em] bg-zinc-200 md:mx-2"></div>
+        <Switcher />
 
       <div onClick={OpenPost} className='bg-black text-nowrap cursor-pointer text-white  py-[14px] px-[20px] md:px-[22px] rounded-[14px] text-sm hover:opacity-90 duration-[300ms]  transition-all hover:px-[28px] ml-2 md:ml-1'>
         New Post
